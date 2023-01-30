@@ -3,7 +3,6 @@
 //
 
 #include "Minimax.h"
-#include <iostream>
 #include <vector>
 #include "Logic.h"
 #include "IO.h"
@@ -22,10 +21,23 @@ int Minimax::weightWinCons() const {
 }
 
 vector<vector<int>> Minimax::runMinimax(int player) {
-    int result = this->minimax(0, false, player);
-    vector<vector<int>> temp;
-    cout << "@" << result << endl;
-    return temp;
+    int best = -100;
+    tuple<int, int> aiMove (0, 0);
+    for (int y = 0; y < 3; y++) {
+        for (int x = 0; x < 3; x++) {
+            if (this->board[y][x] == 0) {
+                this->board[y][x] = player;
+                int current_eval = this->minimax(0, false, player);
+                if (current_eval > best) {
+                    best = current_eval;
+                    aiMove = {y, x};
+                }
+                this->board[y][x] = 0;
+            }
+        }
+    }
+    board[get<0>(aiMove)][get<1>(aiMove)] = 2;
+    return this->board;
 }
 
 int Minimax::minimax(int depth, bool isMax, int player) {
@@ -64,7 +76,7 @@ int Minimax::minimax(int depth, bool isMax, int player) {
     }
 }
 
-bool Minimax::movesLeft() {
+[[maybe_unused]] bool Minimax::movesLeft() {
     for (int y = 0; y < 3; y++){
         for (int x = 0; x < 3; x++){
             if (this->board[y][x] == 0){

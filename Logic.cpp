@@ -3,9 +3,7 @@
 //
 
 #include "Logic.h"
-#include "Minimax.h"
 #include <list>
-#include <iostream>
 #include <vector>
 using namespace std;
 

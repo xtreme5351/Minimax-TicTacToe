@@ -32,7 +32,7 @@ int main() {
                 }
             } else {
                 cout << "AI" << endl;
-                ai.runMinimax(2);
+                board = ai.runMinimax(2);
                 player = true;
             }
         } else {

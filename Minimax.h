@@ -11,7 +11,8 @@ using namespace std;
 class Minimax {
     private:
         int minimax(int depth, bool isMax, int player);
-        bool movesLeft();
+
+    [[maybe_unused]] bool movesLeft();
 
     public:
         vector<vector<int>> board;
