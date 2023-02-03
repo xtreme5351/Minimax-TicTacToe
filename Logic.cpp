@@ -30,23 +30,27 @@ vector<vector<int>> Logic::placeMove(tuple<int, int> &move, vector<vector<int>> 
 
 tuple<bool, int> Logic::hasWon(vector<vector<int>> board) {
     tuple<bool, int> final;
+    int counter = 0;
+
     for (int i = 0; i < 3; i++){
         if (adjacent_find(board[i].begin(), board[i].end(), not_equal_to<>()) == board[i].end() && board[i][2] != 0)
         {
             get<0>(final) = true;
             get<1>(final) = board[i][2];
         }
-    }
-    for (int j = 0; j < 3; j++){
-        if (board[0][j] != 0) {
-            if (board[0][j] == board[1][j]) {
-                if (board[1][j] == board[2][j]) {
+
+        if (board[0][i] != 0) {
+            if (board[0][i] == board[1][i]) {
+                if (board[1][i] == board[2][i]) {
                     get<0>(final) = true;
-                    get<1>(final) = board[2][j];
+                    get<1>(final) = board[2][i];
                 }
             }
         }
+
+        counter += static_cast<int>(count(board[i].begin(), board[i].end(), 0));
     }
+
     if (board[0][0] == board[1][1] && board[0][0] != 0){
         if (board[1][1] == board[2][2]){
             get<0>(final) = true;
@@ -59,6 +63,11 @@ tuple<bool, int> Logic::hasWon(vector<vector<int>> board) {
             get<0>(final) = true;
             get<1>(final) = board[2][0];
         }
+    }
+
+    if (counter == 0){
+        get<0>(final) = true;
+        get<1>(final) = -1;
     }
     return final;
 }

@@ -36,7 +36,12 @@ int main() {
                 player = true;
             }
         } else {
-            cout << "=== PLAYER " << get<1>(temp_2) << " HAS WON ===" << endl;
+            int winner = get<1>(temp_2);
+            if (winner == -1){
+                cout << "=== DRAW ===" << endl;
+            } else{
+                cout << "=== PLAYER " << winner << " HAS WON ===" << endl;
+            }
             break;
         }
     }
